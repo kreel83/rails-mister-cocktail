@@ -1,47 +1,90 @@
 
+<div style="display: flex"></div>
 
 
-<div class="container">
+<div style="color: white;padding:50px;display:flex;flex-direction: column; justify-content: space-between;height:100%;margin-bottom: 60px; background-size: cover; background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path @cocktail.photo %>')">
+  <div class="card" style="margin-bottom: 15px;font-size:0.8rem;width: 20%;background-color: transparent;">
+    <div class="card-footer"  style="display: flex;justify-content: space-between;">
+      <div>Liste des doses</div>
+      <button style="border: none; background-color: transparent;color: #85AADF" data-form="f1" class="openForm" ><i class="fas fa-pen"></i></button>
 
-  <div class="row justify-content-center mt-5 bloc1">
-    <div class="col-md-6">
-     <div class="contain-form">
-      <div class="heading">
-        <div><h2 style="color: white;font-weight: bold"><%= @cocktail.name %></h2></div>
+    </div>
+
+    <div class="card-body" style="padding: 3px">
+      <% @cocktail.doses.each do |dose| %>
+      <div class="dose" style="display: flex;justify-content: space-between;">
+        <div style="display: flex; flex-direction: column;">
+          <div><%= dose.ingredient.name %></div>
+          <div style="color:lightgray"><%= dose.description %></div>
+
+        </div>
+
         <div>
-          <%= link_to cocktails_path do  %>
-          <i class="fas fa-times"></i>
+          <%= link_to dose_path(dose), method: "delete" do  %>
+          <i class="fas fa-trash-alt"></i>
           <% end %>
         </div>
       </div>
       <hr>
-      <div class="card">
+      <% end %>
+      <div class="form" id= "f1" style="display: none">
 
-        <div class="card-body">
-          <% @cocktail.ingredients.each do |ingredient| %>
-          <p><%= ingredient.name %></p>
-          <hr>
-          <% end %>
-          <div class="form" style="display: none">
-
-            <a href="#" class="closeForm"  id="delForm"><i class="fas fa-times"></i></a>
-            <%= simple_form_for([@cocktail, @dose]) do |f| %>
-            <%= f.input :description %>
-            <%= f.association :ingredient %>
-            <%= f.submit class: "btn btn-primary  d-block w-100" %>
-            <% end %>
-          </div>
-
-        <button class="btn btn-success my-5" id="affForm">+</button>
-        </div>
+        <a style="display: block;position: absolute;top:5px;right: 5px;color: white" href="#" class="closeForm"><i class="fas fa-times"></i></a>
+        <%= simple_form_for([@cocktail, @dose]) do |f| %>
+        <%= f.input :description %>
+        <%= f.association :ingredient %>
+        <%= f.submit class: "btn btn-primary  d-block w-100" %>
+        <% end %>
       </div>
+
+      <!-- <button class="btn btn-success my-5" id="affForm">+</button> -->
     </div>
-
-
-
-
-
   </div>
+  <div class="card"  style="font-size:0.8rem;width: 20%;background-color: transparent;">
+    <div class="card-footer"  style="display: flex;justify-content: space-between;">
+      <div>Liste des critiques</div>
+      <div>
+       <button style="border: none; background-color: transparent;color: #85AADF" data-form="f2" class="openForm" ><i class="fas fa-pen"></i></button>
+
+     </div>
+   </div>
+   <div class="card-body">
+     <% @cocktail.reviews.each do |review| %>
+     <div style="background-color : transparent;display: flex;justify-content: space-between;">
+      <div><%=  '⭐️' * review.rating  %></div>
+      <div style="font-size: 14px"><%=  review.content %></div>
+
+    </div>
+    <% end %>
+  </div>
+  <div class="form" id="f2" style="display: none">
+
+    <a style="display: block;position: absolute;top:5px;right: 5px;color: white" href="#" class="closeForm"><i class="fas fa-times"></i></a>
+    <%= simple_form_for([@cocktail, @review]) do |f| %>
+    <%= f.input :content %>
+    <%= f.input :rating %>
+    <%= f.submit class: "btn btn-primary  d-block w-100" %>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
+<div class="heading" style="position: absolute;left: 50%;top: 300px">
+  <div><h1 style="color: white;font-weight: bold"><%= @cocktail.name %></h1></div>
+
+</div>
+  <div style="position: absolute;top:30px;right: 30px;color: white;">
+    <%= link_to cocktails_path do  %>
+    <i class="fas fa-times"></i>
+    <% end %>
+  </div>
+
+
+
+</div>
 
 
 

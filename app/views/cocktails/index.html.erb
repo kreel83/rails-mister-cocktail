@@ -24,7 +24,7 @@
         </div>
       </div>
       <card class="card-body" >
-        <%= image_tag "https://source.unsplash.com/featured/?cocktail/#{cocktail.name}", alt: "Le Wagon" %>
+          <%= cl_image_tag cocktail.photo, height: 300, width: 400, crop: :fill %>
       </card>
     </div>
     <% end %>
@@ -44,6 +44,8 @@
         <div class="container">
          <%= simple_form_for(@cocktail) do |f| %>
          <%= f.input :name%>
+           <%= f.input :photo %>
+          <%= f.input :photo_cache, as: :hidden %>
          <%= f.submit class: "btn btn-primary"%>
          <% end %>
        </div>

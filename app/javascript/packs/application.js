@@ -16,11 +16,19 @@
 // const imagePath = (name) => images(name, true)
 import 'bootstrap';
 console.log('Hello World from Webpacker')
-$('#affForm').click(function() {
-  $('.form').slideDown()
-  $('#affForm').hide()
-})
-$('#delForm').click(function() {
+
+
+$('.openForm').click(function() {
   $('.form').slideUp()
-  $('#affForm').show()
+  $('#'+$(this).data('form')).slideDown()
+  $('.openForm').hide()
 })
+
+$('.closeForm').click(function() {
+
+  $('.form').slideUp()
+    $('.openForm').show()
+
+})
+
+
