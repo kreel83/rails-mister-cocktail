@@ -9,7 +9,8 @@ require 'open-uri'
 require 'json'
 
 
-
+Ingredient.destroy_all
+Dose.destroy_all
 url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
 
 repo = open(url).read()
@@ -18,7 +19,7 @@ e = ending.flatten[1]
 
 
 e.each do |item|
-  cocktail = Cocktail.create!(
+  cocktail = Ingredient.create!(
     name: item['strIngredient1']
   )
 end

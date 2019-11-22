@@ -2,30 +2,46 @@
 
 
 <div class="container">
-  <div class="row justify-content-center mt-5">
+
+  <div class="row justify-content-center mt-5 bloc1">
     <div class="col-md-6">
      <div class="contain-form">
       <div class="heading">
-        <div><%= @cocktail.name %></div>
+        <div><h2 style="color: white;font-weight: bold"><%= @cocktail.name %></h2></div>
         <div>
           <%= link_to cocktails_path do  %>
           <i class="fas fa-times"></i>
           <% end %>
         </div>
       </div>
-
-
       <hr>
       <div class="card">
-        <div class="card-header">
-         <%= @cocktail.name  %>
-       </div>
-       <div class="card-body">
-        <% @cocktail.ingredients.each do |ingredient| %>
-        <p><%= ingredient.name %></p>
-        <% end %>
-      </div>
 
+        <div class="card-body">
+          <% @cocktail.ingredients.each do |ingredient| %>
+          <p><%= ingredient.name %></p>
+          <hr>
+          <% end %>
+          <div class="form" style="display: none">
+
+            <a href="#" class="closeForm"  id="delForm"><i class="fas fa-times"></i></a>
+            <%= simple_form_for([@cocktail, @dose]) do |f| %>
+            <%= f.input :description %>
+            <%= f.association :ingredient %>
+            <%= f.submit class: "btn btn-primary  d-block w-100" %>
+            <% end %>
+          </div>
+
+        <button class="btn btn-success my-5" id="affForm">+</button>
+        </div>
+      </div>
     </div>
+
+
+
+
+
   </div>
-</div>
+
+
+
